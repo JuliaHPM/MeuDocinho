@@ -1,0 +1,120 @@
+.App {
+  text-align: center;
+}
+
+.link{
+  text-decoration: none;
+  color: gray;
+}
+
+.link:hover{
+  color:rgb(77, 77, 77);
+}
+
+.link:focus{
+  color: pink;
+  /* font-weight: bolder; */
+}
+
+.link:active{
+  color: pink;
+}
+
+.conteudoHome{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  text-align: center;
+}
+
+.textPink{
+  color: #FF6AB9;
+  font-weight: 100;
+}
+
+.fontTitle{
+  font-weight: 100;
+  font-size: 27px;
+}
+
+.input{
+  background: #FFFFFF;
+  border: 1px solid rgba(87, 87, 87, 0.19);
+  box-sizing: border-box;
+  border-radius: 7px;
+  padding: 9px;
+  font-size: 14px;
+  padding-left: 10px;
+  width:220px;
+}
+
+.input:focus, .inputForm:focus{
+  outline-offset: 0px !important;
+  outline: 1px solid rgb(182, 182, 182) !important;
+}
+
+.inputForm{
+  background: #FFFFFF;
+  border: 1px solid rgba(87, 87, 87, 0.19);
+  box-sizing: border-box;
+  border-radius: 7px;
+  padding: 9px;
+  font-size: 14px;
+  padding-left: 10px;
+  width:100%;
+  
+}
+
+.btnLogin{
+  background: #FF6AB9;
+  border: 1px solid;
+  box-sizing: border-box;
+  border-radius: 7px;
+  padding: 8px;
+  font-size: 14px;
+  color: #FFFFFF;
+  width:220px;
+}
+
+.btnLogin:hover{
+  background-color: #f865b4;
+}
+
+.button{
+  background: #FF6AB9;
+  border: 1px solid;
+  box-sizing: border-box;
+  border-radius: 7px;
+  padding: 8px;
+  font-size: 14px;
+  color: #FFFFFF;
+  width:100%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.menosDestaque{
+  color: gray;
+  font-size: 14px;
+}
+
+.cardTitle{
+  padding: 5px;
+  font-weight: 200;
+  font-size: 22px;
+}
+
+.error{
+  color: red;
+  font-size: 13px;
+  text-align: left;
+  margin: 0;
+}
+
+.inputLabel{
+  text-align: left;
+  color: grey;
+  font-size: 14px;
+  margin-bottom: 0;
+  width: 100%;
+  padding-left: 5px;
+  margin-top: 10px;
+}
