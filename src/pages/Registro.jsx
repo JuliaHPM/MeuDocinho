@@ -1,14 +1,21 @@
+// https://www.bezkoder.com/react-crud-web-api/
+
 import React from "react";
 import { useForm } from 'react-hook-form';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from "react-router-dom";
+import userService from "../services/user.service";
 
 export default function Registro() {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = data => {
         console.log(data);
+
+        userService.create(data);
     }
+
+    
 
     return (
         <Container >

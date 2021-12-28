@@ -46,7 +46,7 @@ function CadastroIngrediente() {
                     </Col>
                 </Row>
                 <label className="inputLabel">Imagem do ingrediente</label>
-                <input className="inputForm" type="img" {...register("imagem")} />
+                <input className="inputForm" type="file" {...register("imagem")} />
                 <Row>
                     <Col>
                         <input className="button" type="submit" />
