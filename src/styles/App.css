@@ -33,6 +33,7 @@
 .fontTitle{
   font-weight: 100;
   font-size: 27px;
+  padding-top: 45px;
 }
 
 .input{
@@ -117,4 +118,30 @@
   width: 100%;
   padding-left: 5px;
   margin-top: 10px;
+}
+
+.navPills:is(.active){
+  background-color: #f865b4 !important;
+}
+.navPills:is(.active):hover{
+  color: #ffffff !important;
+}
+
+.navPills:not(.active){
+  color: black;
+}
+
+.navPills:hover{
+  color: #f865b4 !important;
+}
+
+.tabela{
+  color: grey;
+  background-color: #FFFFFF;
+}
+
+.pink-background{
+  background-color: rgba(244, 119, 185, 0.1);
+  padding-bottom: 20px;
+  
 }

@@ -12,39 +12,43 @@ export default function Registro() {
     const onSubmit = data => {
         console.log(data);
 
-        userService.create(data);
+        userService.create(data).then(() => {
+            window.location = "/login";            
+            console.log("Usuário adicionado com sucesso!");
+        })
+            .catch(e => {
+                console.log(e);
+            });
     }
-
-    
 
     return (
         <Container >
-             <h3 className="fontTitle" >Cadastro</h3>
+            <h3 className="fontTitle" >Cadastro</h3>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Row className="justify-content-center">
                     <Col xs={8} sm={10} md={4} xl={3}>
-                    <label className="inputLabel">Nome</label>
+                        <label className="inputLabel">Nome</label>
                         <input className="inputForm" type="text" {...register("nome", { required: "Digite o nome" })} />
                         {errors.nome && <p className="error">{errors.nome.message}</p>}
                     </Col>
                 </Row>
                 <Row className="justify-content-center">
                     <Col xs={8} sm={10} md={4} xl={3}>
-                    <label className="inputLabel">Email</label>
+                        <label className="inputLabel">Email</label>
                         <input className="inputForm" type="email" {...register("email", { required: "Digite o email" })} />
                         {errors.email && <p className="error">{errors.email.message}</p>}
                     </Col>
                 </Row>
                 <Row className="justify-content-center">
                     <Col xs={8} sm={10} md={4} xl={3}>
-                    <label className="inputLabel">Username</label>
+                        <label className="inputLabel">Username</label>
                         <input className="inputForm" type="text" {...register("username", { required: "Digite o username" })} />
-                        {errors.email &&  <p className="error">{errors.username.message}</p>}
+                        {errors.email && <p className="error">{errors.username.message}</p>}
                     </Col>
                 </Row>
                 <Row className="justify-content-center">
                     <Col xs={8} sm={10} md={4} xl={3}>
-                    <label className="inputLabel">Senha</label>
+                        <label className="inputLabel">Senha</label>
                         <input className="inputForm" type="password"
                             {...register("senha",
                                 {
@@ -60,7 +64,7 @@ export default function Registro() {
                 </Row>
                 <Row className="justify-content-center">
                     <Col xs={8} sm={10} md={4} xl={3}>
-                        <input className="button" type="submit" value={"Cadastrar"}/>
+                        <input className="button" type="submit" value={"Cadastrar"} />
                     </Col>
                 </Row>
                 <Row className="justify-content-center">

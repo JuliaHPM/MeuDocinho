@@ -2,12 +2,22 @@ import React from "react";
 import { useForm } from 'react-hook-form';
 import { Container, Row, Col } from 'react-bootstrap';
 // import IconReceita from "../img/receita.png"
+import receitaService from "../services/receita.service";
 
 export default function CadastroReceita() {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = data => {
         console.log(data);
+
+        receitaService.create(data).then(() => {
+            window.location = "/painel";
+            console.log("Receita adicionado com sucesso!");
+        })
+            .catch(e => {
+                console.log(e);
+                console.log("Erro ao cadastrar receita");
+            });
     }
 
     return (

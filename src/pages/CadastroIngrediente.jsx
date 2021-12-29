@@ -1,12 +1,21 @@
 import React from "react";
 import { useForm } from 'react-hook-form';
 import { Container, Row, Col } from 'react-bootstrap';
+import ingredienteService from "../services/ingrediente.service";
 
 function CadastroIngrediente() {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = data => {
         console.log(data);
+
+        ingredienteService.create(data).then(() => {
+            window.location = "/painel";
+            console.log("Ingrediente adicionado com sucesso!");
+        })
+            .catch(e => {
+                console.log(e);
+            });
     }
 
     return (
@@ -46,10 +55,11 @@ function CadastroIngrediente() {
                     </Col>
                 </Row>
                 <label className="inputLabel">Imagem do ingrediente</label>
-                <input className="inputForm" type="file" {...register("imagem")} />
+                <input className="inputForm" type="text" {...register("imagem")} />
+                {/* imagem? */}
                 <Row>
                     <Col>
-                        <input className="button" type="submit" />
+                        <input className="button" type="submit" value={"Cadastrar"}/>
                     </Col>
                 </Row>
 
@@ -58,4 +68,5 @@ function CadastroIngrediente() {
         </Container>
     )
 }
+
 export default CadastroIngrediente;

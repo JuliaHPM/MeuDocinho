@@ -1,12 +1,22 @@
 import React from "react";
 import { useForm } from 'react-hook-form';
 import { Container, Row, Col } from 'react-bootstrap';
+import doceService from "../services/doce.service";
 
 export default function CadastroDoce() {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = data => {
         console.log(data);
+
+        doceService.create(data).then(() => {
+            // console.log("Doce adicionado com sucesso!");
+            window.location = "/painel";
+            
+        })
+            .catch(e => {
+                console.log(e);
+            });
     }
 
     return (

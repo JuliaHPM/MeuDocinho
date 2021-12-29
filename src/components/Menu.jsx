@@ -15,7 +15,7 @@ export default function Menu() {
 
     return (
         <>
-            <Navbar collapseOnSelect expand="lg" bg="white" className="shadow-sm p-1 mb-5 bg-white" >
+            <Navbar collapseOnSelect expand="lg" bg="white" className="shadow-sm p-1 mb-0 bg-white" >
                 <Container>
                     <Navbar.Brand href="/">
                         <img src={Logo} alt="Logo" width={210} height={35} />
@@ -24,42 +24,36 @@ export default function Menu() {
 
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="me-auto">
-                            <Nav.Link>
-                                <Link to="/" className="link"> Home </Link>
-                            </Nav.Link>
-                            <Nav.Link>
-                                <Link to="/painel" className="link"> Painel </Link>
-                            </Nav.Link>
+                        <Nav className="me-auto align-items-center ">
+                            <Nav.Link as={Link} to="/"> Home </Nav.Link>
+                            <Nav.Link as={Link} to="/painel"> Painel </Nav.Link>
+
                             <NavDropdown title="Cadastros" id="collasible-nav-dropdown">
-                                <NavDropdown.Item href="/cadastroIngrediente"><img src={IconIngredientes} alt="icon" width={21} /> Ingrediente</NavDropdown.Item>
-                                <NavDropdown.Item href="/cadastroReceita"><img src={IconReceita} alt="icon" width={21} /> Receita</NavDropdown.Item>
-                                <NavDropdown.Item href="/cadastroDoce"><img src={IconDoce} alt="icon" width={21} /> Doce</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/cadastroIngrediente"><img src={IconIngredientes} alt="icon" width={21} /> Ingrediente</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/cadastroReceita"><img src={IconReceita} alt="icon" width={21} /> Receita</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/cadastroDoce"><img src={IconDoce} alt="icon" width={21} /> Doce</NavDropdown.Item>
                                 {/* <NavDropdown.Divider />
                     <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
                             </NavDropdown>
-                            <Nav.Link href="/cardapio"> Cardápio</Nav.Link>
+
+                            <Nav.Link as={Link} to="/cardapio"> Cardápio</Nav.Link>
                         </Nav>
                         <Nav className="align-items-center">
-                        <Nav.Link>
-                                <Link to="/login" className="link"> Login </Link>
-                            </Nav.Link>
+                            <Nav.Link as={Link} to="/login"> Login</Nav.Link>
 
-                            <Nav.Link>
-                                <Link to="/registro" className="link"> Cadastre-se </Link>
-                            </Nav.Link>
+                            <Nav.Link as={Link} to="/registro"> Cadastre-se </Nav.Link>
 
                             <NavDropdown title={<Perfil />} id="collasible-nav-dropdown">
 
-                                <NavDropdown.Item disabled href="#action/3.1" >
+                                <NavDropdown.Item disabled as={Link} to="#action/3.1" >
                                     <img src={IconCozinheira} alt="icon" width={21} /> Perfil </NavDropdown.Item>
-                                <NavDropdown.Item disabled href="#action/3.2"> <img src={IconAjuda} alt="icon" width={21} /> Ajuda</NavDropdown.Item>
-                                <NavDropdown.Item disabled href="#action/3.2"><img src={IconConf} alt="icon" width={21} /> Configurações</NavDropdown.Item>
+                                <NavDropdown.Item disabled as={Link} to="#action/3.2"> <img src={IconAjuda} alt="icon" width={21} /> Ajuda</NavDropdown.Item>
+                                <NavDropdown.Item disabled as={Link} to="#action/3.2"><img src={IconConf} alt="icon" width={21} /> Configurações</NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action/3.3"><img src={IconLogout} alt="icon" width={21} /> Logout</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="#action/3.3"><img src={IconLogout} alt="icon" width={21} /> Logout</NavDropdown.Item>
                             </NavDropdown>
 
-                            
+
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
