@@ -1,26 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import { Container, Row, Col } from 'react-bootstrap';
 import ingredienteService from "../services/ingrediente.service";
+import { Link, useParams } from "react-router-dom";
+import { useFetch } from "../hooks/useFetch";
 
 function CadastroIngrediente() {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+
+    let { id } = useParams();
+
+    const { res } = useFetch(id && "/ingredientes/" + id);
+    const [dados, setDados] = useState([]);
+
+    useEffect(() => {
+        // console.log(res);
+        setDados(res);
+    }, [res])
+
+    useEffect(() => {
+        setValue("nome", id && dados && dados.nome);
+        setValue("marca", id && dados && dados.marca);
+        setValue("quantEmb", id && dados && dados.quantEmb);
+        setValue("precoUnit", id && dados && dados.precoUnit);
+        setValue("precogml", id && dados && dados.precogml);
+        setValue("imagem", id && dados && dados.imagem);
+    }, [dados])
 
     const onSubmit = data => {
         console.log(data);
 
-        ingredienteService.create(data).then(() => {
-            window.location = "/painel";
-            console.log("Ingrediente adicionado com sucesso!");
-        })
-            .catch(e => {
-                console.log(e);
-            });
+        if (!id) {
+            ingredienteService.create(data).then(() => {
+                window.location = "/painel";
+                console.log("Ingrediente adicionado com sucesso!");
+            })
+                .catch(e => {
+                    console.log(e);
+                });
+        } else {
+            ingredienteService.update(id, data).then(() => {
+                window.location = "/painel";
+                console.log("Ingrediente atualizado com sucesso!");
+            })
+                .catch(e => {
+                    console.log(e);
+                });
+        }
     }
 
     return (
         <Container className="w-75 ">
-            <h3 className="fontTitle mb-4">Cadastro Ingrediente</h3>
+            {!id && <h3 className="fontTitle mb-4">Cadastro Ingrediente</h3>}
+            {id && <h3 className="fontTitle mb-4">Editar Ingrediente</h3>}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Row>
                     <Col>
@@ -57,10 +89,13 @@ function CadastroIngrediente() {
                 <label className="inputLabel">Imagem do ingrediente</label>
                 <input className="inputForm" type="text" {...register("imagem")} />
                 {/* imagem? */}
-                <Row>
-                    <Col>
-                        <input className="button" type="submit" value={"Cadastrar"}/>
+                <Row className="justify-content-end">
+                    <Col sm={4} md={3} lg={2}>
+                        <Link to="/painel"><input className="btnCancelar" type="button" value={"Cancelar"} /></Link>
                     </Col>
+                    <Col sm={8} md={3} lg={2}>
+                    {!id && <input className="button" type="submit" value={"Cadastrar"} />}
+                        {id && <input className="button" type="submit" value={"Salvar"} />}  </Col>
                 </Row>
 
 

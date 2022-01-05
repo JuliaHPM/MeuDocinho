@@ -9,7 +9,7 @@ import { useFetch } from "../hooks/useFetch";
 
 export default function Painel() {
 
-    const [titulos, setTitulos] = useState(["Nome", "Marca", "ml/g embalagem", "Preço Unit.","Preço g/ml"]);
+    const [titulos, setTitulos] = useState(["Ingrediente", "Marca", "ml/g embalagem", "Preço Unit.","Preço g/ml"]);
     const [atributos, setAtributos] = useState(["nome", "marca", "quantEmb", "precoUnit","precogml"]);
     const [url, setUrl] = useState("/ingredientes");
     const { res } = useFetch(url); //, fetchError, isLoading
@@ -23,7 +23,7 @@ export default function Painel() {
 
     function changeTable(value) {
         if (value === "ingrediente") {
-            setTitulos(["Nome", "Marca", "ml/g embalagem", "Preço Unit.","Preço g/ml"]);
+            setTitulos(["Ingrediente", "Marca", "ml/g embalagem", "Preço Unit.","Preço g/ml"]);
             setAtributos(["nome", "marca", "quantEmb", "precoUnit","precogml"]);
             setUrl("/ingredientes");
 

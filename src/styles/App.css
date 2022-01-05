@@ -92,6 +92,18 @@
   margin-bottom: 15px;
 }
 
+.btnCancelar{
+  background: #c2c1c2;
+  border: 1px solid;
+  box-sizing: border-box;
+  border-radius: 7px;
+  padding: 8px;
+  font-size: 14px;
+  color: #FFFFFF;
+  width:100%;
+  margin-top: 15px;
+}
+
 .menosDestaque{
   color: gray;
   font-size: 14px;
@@ -140,8 +152,14 @@
   background-color: #FFFFFF;
 }
 
+.cabecalhoTabela {
+  /* background-color: #facfe6b9; */
+  padding: 10px;
+  color:rgb(77, 77, 77);
+  
+}
+
 .pink-background{
   background-color: rgba(244, 119, 185, 0.1);
   padding-bottom: 20px;
-  
 }

@@ -33,6 +33,7 @@ export const useFetch = (dataUrl) => {
             }
         }
 
+        dataUrl &&
         fetchData(dataUrl);
 
         const cleanUp = () => {

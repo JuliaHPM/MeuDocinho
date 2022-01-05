@@ -21,6 +21,9 @@ export default function Routes(){
                 <Route path="/cadastroIngrediente" element={<CadastroIngrediente/>}/>
                 <Route path="/cadastroReceita" element={<CadastroReceita/>}/>
                 <Route path="/cadastroDoce" element={<CadastroDoce/>}/>
+                <Route path="/editarDoce/:id" element={<CadastroDoce/>}/>
+                <Route path="/editarIngrediente/:id" element={<CadastroIngrediente/>}/>
+                <Route path="/editarReceita/:id" element={<CadastroReceita/>}/>
             </Switch>
     )
 }
