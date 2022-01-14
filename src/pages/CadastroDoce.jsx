@@ -27,11 +27,6 @@ export default function CadastroDoce() {
 
     },[])
 
-    // const options = [
-    //     {value:"brigadeiro",label:"Brigadeiro"      
-    //     }
-    // ]
-
     let { id } = useParams();
 
     const { res } = useFetch(id && "/doces/" + id);

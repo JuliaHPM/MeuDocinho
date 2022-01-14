@@ -21,8 +21,8 @@ export default function Cardapio() {
 
                         <Col  key={doce.id}>
                             <h4>{doce.nome}</h4>
-                            <p className=" justify-content-end">{doce.receitas}</p>
-                            <p d-flex="true" className="d-flex justify-content-end">R${doce.valorTotalMargem}</p>
+                            <p className=" justify-content-end">{doce.receitas.map((ing,i,array)=>((i+1)===array.length ? ing :ing+", " ))}</p>
+                            <p d-flex="true" className="d-flex justify-content-center">R${doce.valorTotalMargem}</p>
                         </Col>
 
                     ))}

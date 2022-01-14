@@ -12,10 +12,8 @@ export default function CadastroReceita() {
 
     const [opcoes, setOpcoes] = useState([]);
 
-    
-
     useEffect(()=>{
-        const resposta = IngredienteDataService.getAll().then((res)=>{
+        IngredienteDataService.getAll().then((res)=>{
             setOpcoes(res.data.map((opcao) => {
                 return {
                     value: opcao.nome,
@@ -27,7 +25,6 @@ export default function CadastroReceita() {
             setOpcoes([]);
         });
 
-        console.log(resposta);
     },[])
     
 
@@ -44,9 +41,18 @@ export default function CadastroReceita() {
     }, [res])
 
     useEffect(() => {
+        // console.log(dados)
         setValue("nome", id && dados && dados.nome);
         setValue("categoria", id && dados && dados.categoria);
-        setValue("ingredientes", id && dados && dados.ingredientes);
+        setValue("ingredientes", id && dados && dados.ingredientes&& 
+        dados.ingredientes
+        // .map((ing)=>{
+        //     return{
+        //         value: ing,
+        //         label: ing
+        //     }
+        // })
+         );
         setValue("tempoPrep", id && dados && dados.tempoPrep);
         setValue("rendimento", id && dados && dados.rendimento);
         setValue("custo", id && dados && dados.custo);
@@ -114,9 +120,6 @@ export default function CadastroReceita() {
                             )}
                         />
                         
-                        {/* <input className="inputForm" type="text" {...register("ingredientes",
-                            { required: "Escolha os ingredientes da receita" })} />
-                        <p className="error">{errors.ingredientes?.message}</p> */}
                     </Col>
                 </Row>
                 <Row>
