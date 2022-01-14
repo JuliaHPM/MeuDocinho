@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Dropdown, DropdownButton, InputGroup, Table } from "react-bootstrap";
+// import { Dropdown, DropdownButton, InputGroup, Table } from "react-bootstrap";
 import MeuModal from "./Modal";
 import DoceService from "../services/doce.service"
 import IngredienteService from "../services/ingrediente.service"
 import ReceitaService from "../services/receita.service"
 import { Link } from "react-router-dom"
+import { Table } from "react-bootstrap";
 
 export default function Tabela({ titulos, data, atributos }) {
     const [showModalExcluir, setShowModalExcluir] = useState(false);
@@ -17,7 +18,6 @@ export default function Tabela({ titulos, data, atributos }) {
         handleShowModalExcluir();
         setItemSelecionado(id);
     }
-
 
     return (
         <>
@@ -42,7 +42,7 @@ export default function Tabela({ titulos, data, atributos }) {
                             ))}
 
                             <td >
-                                <Link to={"/editar" + titulos[0] + "/" + linha.id}> <img title="Editar" alt="icon" width={25} src="https://img.icons8.com/ios/48/000000/pencil--v1.png"/></Link>
+                                <Link className="m-2" to={"/editar" + titulos[0] + "/" + linha.id}> <img title="Editar" alt="icon" width={25} src="https://img.icons8.com/ios/48/000000/pencil--v1.png"/></Link>
                                 <img title="Excluir" onClick={() => mostrarModalExcluir(linha.id)} alt="icon" src="https://img.icons8.com/ios/30/000000/delete--v1.png" width={25} style={{cursor:"pointer"}} />
                             </td>
 

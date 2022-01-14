@@ -15,7 +15,6 @@ export default function Painel() {
     const { res } = useFetch(url); //, fetchError, isLoading
     const [data, setData] = useState([]);
 
-
     useEffect(() => {
         // console.log(res);
         setData(res);
@@ -103,6 +102,7 @@ export default function Painel() {
 
                 <Tabela titulos={titulos} data={data} atributos={atributos} />
             </Container>
+            <footer className="m-5"></footer>
         </>
     )
 }

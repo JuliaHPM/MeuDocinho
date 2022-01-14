@@ -6,7 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 
 function CadastroIngrediente() {
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+    const { register, handleSubmit, setValue, getValues, formState: { errors } } = useForm();
 
     let { id } = useParams();
 
@@ -25,10 +25,10 @@ function CadastroIngrediente() {
         setValue("precoUnit", id && dados && dados.precoUnit);
         setValue("precogml", id && dados && dados.precogml);
         setValue("imagem", id && dados && dados.imagem);
-    }, [dados])
+    }, [dados, id, setValue])
 
     const onSubmit = data => {
-        console.log(data);
+        // console.log(data);
 
         if (!id) {
             ingredienteService.create(data).then(() => {
@@ -46,6 +46,15 @@ function CadastroIngrediente() {
                 .catch(e => {
                     console.log(e);
                 });
+        }
+    }
+
+    function calculoPrecogml(e) {
+        const precoUnit = e.target.name === "precoUnit" ? e.target.value : getValues("precoUnit");
+        const quantEmb = e.target.name === "quantEmb" ? e.target.value : getValues("quantEmb"); //.replace(",", ".")
+        if (precoUnit && quantEmb) {
+            const precogml = (parseFloat(precoUnit) / parseFloat(quantEmb) ).toFixed(4);
+            setValue("precogml", String(precogml).replace(".", ","));
         }
     }
 
@@ -71,19 +80,19 @@ function CadastroIngrediente() {
                 <Row>
                     <Col md>
                         <label className="inputLabel">Quantidade da embalagem (g/ml)</label>
-                        <input className="inputForm" type="text" {...register("quantEmb",
+                        <input className="inputForm" type="text" {...register("quantEmb", { onChange: (e) => calculoPrecogml(e) },
                             { required: "Digite a quantidade da embalagem" })} />
                         {errors.quantEmb && <p className="error">{errors.quantEmb.message}</p>}
                     </Col>
                     <Col>
                         <label className="inputLabel">Preço unitário</label>
-                        <input className="inputForm" type="text" {...register("precoUnit",
+                        <input className="inputForm" type="text"  {...register("precoUnit", { onChange: (e) => calculoPrecogml(e) },
                             { required: "Digite o preço unitário" })} />
                         {errors.precoUnit && <p className="error">{errors.precoUnit.message}</p>}
                     </Col>
                     <Col>
                         <label className="inputLabel">Preço por g/ml</label>
-                        <input className="inputForm" type="text" {...register("precogml")} />
+                        <input className="inputForm" type="text" disabled {...register("precogml")} />
                     </Col>
                 </Row>
                 <label className="inputLabel">Imagem do ingrediente</label>

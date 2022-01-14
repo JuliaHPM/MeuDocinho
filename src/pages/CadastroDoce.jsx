@@ -1,12 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
+import Select from 'react-select';
 import { Container, Row, Col } from 'react-bootstrap';
 import doceService from "../services/doce.service";
 import { Link, useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 
 export default function CadastroDoce() {
-    const { register, handleSubmit, setValue, getValues, formState: { errors } } = useForm();
+    const { register, handleSubmit, control, setValue, getValues, formState: { errors } } = useForm();
+
+    const options = [
+        {value:"brigadeiro",label:"Brigadeiro"      
+        }
+    ]
 
     let { id } = useParams();
 
@@ -33,7 +40,7 @@ export default function CadastroDoce() {
     }, [dados])
 
     const onSubmit = data => {
-        console.log(data);
+        // console.log(data);
         if (!id) {
             doceService.create(data).then(() => {
                 // console.log("Doce adicionado com sucesso!");
@@ -58,9 +65,11 @@ export default function CadastroDoce() {
 
     function calculoValorMargem(e) {
         const margem = e.target.name === "margemLucro" ? e.target.value : getValues("margemLucro");
-        const valorTotal = e.target.name === "valorTotal" ? e.target.value.replace(",", ".") : getValues("valorTotal").replace(",", ".");
-        const totalMargem = valorTotal && margem && ((parseFloat(valorTotal) * (parseFloat(margem) / 100)) + parseFloat(valorTotal)).toFixed(2);
-        setValue("valorTotalMargem", String(totalMargem).replace(".", ","));
+        const valorTotal = e.target.name === "valorTotal" ? e.target.value.replace(",", ".") : getValues("valorTotal"); //.replace(",", ".")
+        if (valorTotal) {
+            const totalMargem = valorTotal && margem && ((parseFloat(valorTotal) * (parseFloat(margem) / 100)) + parseFloat(valorTotal)).toFixed(2);
+            setValue("valorTotalMargem", String(totalMargem).replace(".", ","));
+        }
     }
 
     return (
@@ -85,8 +94,21 @@ export default function CadastroDoce() {
                 <Row>
                     <Col>
                         <label className="inputLabel">Receitas</label>
-                        <input className="inputForm" type="text"  {...register("receitas",
-                            { required: "Escolha as receitas do doce" })} />
+                        <Controller
+                            control={control}
+                            defaultValue={options.map(c => c.value)}
+                            name="ingredientes"
+                            render={({ field: { onChange, value, ref } }) => (
+                                <Select
+                                    inputRef={ref}
+                                    value={options.find(c => c.value === value)}
+                                    onChange={val => onChange(val.map(c => c.value))}
+                                    options={options}
+                                    isMulti
+                                    
+                                />
+                            )}
+                        />
                         <p className="error">{errors.receitas?.message}</p>
                     </Col>
                 </Row>

@@ -9,14 +9,17 @@ Software para confeitaria que auxilia na precificação de doces. Possui cadastr
 - react-hook-form
 
 ## CheckList
-- [x] Backend
+- [x] Back-end
 - [x] Telas principais
 - [x] Estilização 🎨
 - [x] Cadastro, Exclusão e Alteração de Ingredientes, Receitas e Doces 🗂️
 - [x] Tabelas
-- [ ] Login 📲
-- [ ] Pesquisa
+- [x] Login 📲
+- [ ] CRUD usuário
+- [ ] Pesquisa 🔎
 - [ ] Relacionamento entre tabelas
+- [ ] Toasts e avisos ❗
+- [ ] Upload imagens 📥
 
 <!-- ## Available Scripts
 

@@ -1,16 +1,35 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
+import Select from 'react-select';
 import { Container, Row, Col } from 'react-bootstrap';
-// import IconReceita from "../img/receita.png"
 import receitaService from "../services/receita.service";
 import { Link, useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 
 export default function CadastroReceita() {
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+
+    const { resposta } = useFetch("/ingredientes"); //, fetchError, isLoading
+    const [opcoes, setOpcoes] = useState([]);
+
+    useEffect(() => {
+        // console.log(res);
+        setOpcoes(resposta);
+    }, [resposta])
+    
+    const teste = opcoes && opcoes.map(opcao => opcao.nome);
+    console.log(teste);
+
+    const options = [
+        {value:"farinha", label:"Farinha"}
+    ]
+
+
+
+    const { handleSubmit, control, register, setValue,  formState: { errors } } = useForm();
 
     let { id } = useParams();
-    
+
     const { res } = useFetch(id && "/receitas/" + id);
     const [dados, setDados] = useState([]);
 
@@ -31,7 +50,7 @@ export default function CadastroReceita() {
     }, [dados])
 
     const onSubmit = data => {
-        console.log(data);
+        // console.log(data);
 
         if (!id) {
             receitaService.create(data).then(() => {
@@ -52,6 +71,8 @@ export default function CadastroReceita() {
         }
 
     }
+
+   
 
     return (
         <><Container className="w-75">
@@ -74,10 +95,26 @@ export default function CadastroReceita() {
                 </Row>
                 <Row>
                     <Col>
-                        <label className="inputLabel">Ingredientes</label>
-                        <input className="inputForm" type="text" {...register("ingredientes",
+                       <label className="inputLabel">Ingredientes</label>
+                        <Controller
+                            control={control}
+                            defaultValue={options.map(c => c.value)}
+                            name="ingredientes"
+                            render={({ field: { onChange, value, ref } }) => (
+                                <Select
+                                    inputRef={ref}
+                                    value={options.find(c => c.value === value)}
+                                    onChange={val => onChange(val.map(c => c.value))}
+                                    options={options}
+                                    isMulti
+                                    
+                                />
+                            )}
+                        />
+                        
+                        {/* <input className="inputForm" type="text" {...register("ingredientes",
                             { required: "Escolha os ingredientes da receita" })} />
-                        <p className="error">{errors.ingredientes?.message}</p>
+                        <p className="error">{errors.ingredientes?.message}</p> */}
                     </Col>
                 </Row>
                 <Row>

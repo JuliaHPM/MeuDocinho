@@ -28,6 +28,10 @@ class UserDataService {
   findByTitle(nome) {
     return http.get(`/users?nome=${nome}`);
   }
+
+  login(data){
+    return http.post("/users/login", data);
+  }
 }
 
 export default new UserDataService();
