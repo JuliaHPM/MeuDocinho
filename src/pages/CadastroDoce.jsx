@@ -6,14 +6,31 @@ import { Container, Row, Col } from 'react-bootstrap';
 import doceService from "../services/doce.service";
 import { Link, useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
+import ReceitaDataService from '../services/receita.service';
 
 export default function CadastroDoce() {
     const { register, handleSubmit, control, setValue, getValues, formState: { errors } } = useForm();
+    const [opcoes, setOpcoes] = useState([]);
 
-    const options = [
-        {value:"brigadeiro",label:"Brigadeiro"      
+    useEffect(()=>{
+        ReceitaDataService.getAll().then((res)=>{
+            setOpcoes(res.data.map((opcao) => {
+                return {
+                    value: opcao.nome,
+                    label: opcao.nome
+                }
+            }))
         }
-    ]
+        ).catch(e=>{
+            setOpcoes([]);
+        });
+
+    },[])
+
+    // const options = [
+    //     {value:"brigadeiro",label:"Brigadeiro"      
+    //     }
+    // ]
 
     let { id } = useParams();
 
@@ -40,7 +57,7 @@ export default function CadastroDoce() {
     }, [dados])
 
     const onSubmit = data => {
-        // console.log(data);
+        
         if (!id) {
             doceService.create(data).then(() => {
                 // console.log("Doce adicionado com sucesso!");
@@ -96,14 +113,14 @@ export default function CadastroDoce() {
                         <label className="inputLabel">Receitas</label>
                         <Controller
                             control={control}
-                            defaultValue={options.map(c => c.value)}
-                            name="ingredientes"
+                            defaultValue={opcoes.map(c => c.value)}
+                            name="receitas"
                             render={({ field: { onChange, value, ref } }) => (
                                 <Select
                                     inputRef={ref}
-                                    value={options.find(c => c.value === value)}
+                                    value={opcoes.find(c => c.value === value)}
                                     onChange={val => onChange(val.map(c => c.value))}
-                                    options={options}
+                                    options={opcoes}
                                     isMulti
                                     
                                 />

@@ -6,25 +6,30 @@ import { Container, Row, Col } from 'react-bootstrap';
 import receitaService from "../services/receita.service";
 import { Link, useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
+import IngredienteDataService from '../services/ingrediente.service';
 
 export default function CadastroReceita() {
 
-    const { resposta } = useFetch("/ingredientes"); //, fetchError, isLoading
     const [opcoes, setOpcoes] = useState([]);
 
-    useEffect(() => {
-        // console.log(res);
-        setOpcoes(resposta);
-    }, [resposta])
     
-    const teste = opcoes && opcoes.map(opcao => opcao.nome);
-    console.log(teste);
 
-    const options = [
-        {value:"farinha", label:"Farinha"}
-    ]
+    useEffect(()=>{
+        const resposta = IngredienteDataService.getAll().then((res)=>{
+            setOpcoes(res.data.map((opcao) => {
+                return {
+                    value: opcao.nome,
+                    label: opcao.nome
+                }
+            }))
+        }
+        ).catch(e=>{
+            setOpcoes([]);
+        });
 
-
+        console.log(resposta);
+    },[])
+    
 
     const { handleSubmit, control, register, setValue,  formState: { errors } } = useForm();
 
@@ -50,8 +55,7 @@ export default function CadastroReceita() {
     }, [dados])
 
     const onSubmit = data => {
-        // console.log(data);
-
+        console.log(data);
         if (!id) {
             receitaService.create(data).then(() => {
                 window.location = "/painel";
@@ -71,8 +75,6 @@ export default function CadastroReceita() {
         }
 
     }
-
-   
 
     return (
         <><Container className="w-75">
@@ -98,14 +100,14 @@ export default function CadastroReceita() {
                        <label className="inputLabel">Ingredientes</label>
                         <Controller
                             control={control}
-                            defaultValue={options.map(c => c.value)}
+                            defaultValue={opcoes.map(c => c.value)}
                             name="ingredientes"
                             render={({ field: { onChange, value, ref } }) => (
                                 <Select
                                     inputRef={ref}
-                                    value={options.find(c => c.value === value)}
+                                    value={opcoes.find(c => c.value === value)}
                                     onChange={val => onChange(val.map(c => c.value))}
-                                    options={options}
+                                    options={opcoes}
                                     isMulti
                                     
                                 />

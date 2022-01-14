@@ -37,8 +37,8 @@ export default function Tabela({ titulos, data, atributos }) {
                 <tbody>
                     {data && data.map(linha => (
                         <tr key={linha.id}>
-                            {atributos.map(a => (
-                                <td key={a}>{linha[a]}</td>
+                            {atributos&&atributos.map((a) => (
+                                <td key={a}>{a==="ingredientes" || a==="receitas" ? linha[a]&&linha[a].map((ing,i,array)=>((i+1)===array.length ? ing :ing+", " )) : linha[a]}</td>
                             ))}
 
                             <td >

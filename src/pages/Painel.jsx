@@ -19,7 +19,7 @@ export default function Painel() {
         // console.log(res);
         setData(res);
     }, [res])
-
+    
     function changeTable(value) {
         if (value === "ingrediente") {
             setTitulos(["Ingrediente", "Marca", "ml/g embalagem", "Preço Unit.","Preço g/ml"]);
